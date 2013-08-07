@@ -81,7 +81,7 @@ The following options can be passed to the plugin when called:
   * Default value: ```expanded```
 * ```groupFunction```: The function that will handle the grouping of the timeline.  There are two functions that can be called with a string, otherwise provide your own custom function.
   * Data type: string or function
-  * Allowed values: function, ```groupSegmentByYear```, ```groupSegmentByDecade```
+  * Allowed values: function, ```groupSegmentByDay```, ```groupSegmentByMonth```, ```groupSegmentByYear```, ```groupSegmentByDecade```
   * Default value: ```groupSegmentByYear```
 * ```sharing```: This turns off and on sharing, but currently should not be used.
   * Data type: boolean
