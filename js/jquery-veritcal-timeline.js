@@ -143,14 +143,11 @@
      * Grouping function by month.
      */
     var groupSegmentByMonth = function(segment, groups, direction) {
-      // Grouping by decade
       var month = new Date(segment.timestamp).getMonth();
       var year = new Date(segment.timestamp).getFullYear();
       var _month_str = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
       var _time_start = Date.parse(_month_str[month] + ' 1, ' + year);
       var _time_end = Date.parse(_month_str[(month + 1) % 12] + ' 1, ' + year);
-      //var _time_end = Date.parse(_month_str[month] + ' 31, ' + year);
-      //var _id = month.toString() + '.' + year.toString();
       var _id = month + year * 100;
 
       groups[_id] = {
@@ -168,15 +165,12 @@
      * Grouping function by day.
      */
     var groupSegmentByDay = function(segment, groups, direction) {
-      // Grouping by decade
       var month = new Date(segment.timestamp).getMonth();
       var year = new Date(segment.timestamp).getFullYear();
       var day = new Date(segment.timestamp).getDate();
       var _month_str = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
       var _time_start = Date.parse(_month_str[month] + ' ' + day + ', ' + year);
       var _time_end = Date.parse(_month_str[month] + ' ' + (day+1) + ', ' + year);
-      //var _time_end = Date.parse(_month_str[month] + ' 31, ' + year);
-      //var _id = month.toString() + '.' + year.toString();
       var _id = day + (month + year * 100) * 100;
 
       groups[_id] = {
