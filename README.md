@@ -9,6 +9,7 @@ Forked from the [Super Awesome Vertical Timeline](https://github.com/balancemedi
 Create a Google Spreadsheet with the following columns (see options for different names) and publish it.  An example can be found [here](https://docs.google.com/spreadsheet/ccc?key=0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc#gid=0);
 
 * title
+* title icon
 * date
 * display date
 * photo url
@@ -19,6 +20,8 @@ Create a Google Spreadsheet with the following columns (see options for differen
 **Please note that the the _date_ column must be in the format _Month Day, Year_ (April 25, 2012) for proper javascript parsing.  The _display date_ is just how it is displayed.**
 
 **Also, all columns must be _plain text_ format, including the two date columns.**
+
+**The _title icon_ field can be a relative or absolute URL, and should be a 20x20 px image for best results.**
 
 ### Include CSS and JS
 
@@ -101,6 +104,7 @@ The following options can be passed to the plugin when called:
   * Data type: object
   * Default value: ```{
         'title': 'title',
+        'title_icon': 'title icon',
         'date': 'date',
         'display_date': 'display date',
         'photo_url': 'photo url',
