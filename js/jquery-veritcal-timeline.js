@@ -38,9 +38,11 @@
           <div class="inner"> \
             <div class="timestamp">{{timestamp}}</div> \
             <div class="title"> \
-                <h3>{{#if title_icon}}<img class="title-icon" src="{{title_icon}}" />{{/if}} \
+                <h3> \
+                {{#if title_icon}}<img class="title-icon" src="{{title_icon}}" />{{/if}} \
                 {{title}} \
-            </h3></div> \
+                </h3> \
+            </div> \
             <div class="date">{{display_date}}</div> \
             <div class="body"> \
               {{#if photo_url}} \
