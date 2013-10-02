@@ -5,14 +5,14 @@
  * Sharing is using old APIs and breaks in some browsers.
  */
 (function($, w, undefined) {
-  $.fn.verticalTimeline = function(options) {
+  $.fn.verticalTimeline = function(options, new_data) {
     /**
      * Configuration for timeline.  defaultDirection should be
      * "newest" or "oldest".  groupFunction is a function
      * to handle grouping.
      */
     var defaults = {
-      key: 'https://docs.google.com/spreadsheet/pub?key=0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc&output=html',
+      key: '',
       sheetName: 'Posts',
       defaultDirection: 'newest',
       defaultExpansion: 'expanded',
@@ -24,6 +24,7 @@
       tabletopOptions: {},
       columnMapping: {
         'title': 'title',
+        'title_icon': 'title icon',
         'date': 'date',
         'display_date': 'display date',
         'photo_url': 'photo url',
@@ -36,7 +37,12 @@
         <div class="item post"> \
           <div class="inner"> \
             <div class="timestamp">{{timestamp}}</div> \
-            <div class="title"><h3>{{title}}</h3></div> \
+            <div class="title"> \
+                <h3> \
+                {{#if title_icon}}<img class="title-icon" src="{{title_icon}}" />{{/if}} \
+                {{title}} \
+                </h3> \
+            </div> \
             <div class="date">{{display_date}}</div> \
             <div class="body"> \
               {{#if photo_url}} \
@@ -96,7 +102,7 @@
         </div> \
       '
     };
-    
+
     /**
      * Grouping function by Decade.
      */
@@ -105,63 +111,144 @@
       var year = new Date(segment.timestamp).getFullYear();
       var yearStr = year.toString();
       var id = yearStr.slice(0, -1);
-      
+
       groups[id] = {
         id: id,
         groupDisplay: id + '0\'s',
-        timestamp: (direction == 'newest') ? 
+        timestamp: (direction == 'newest') ?
           Date.parse('December 31, ' + id + '9') :
           Date.parse('January 1, ' + id + '0'),
         timestampStart: Date.parse('January 1, ' + id + '0'),
         timestampEnd: Date.parse('December 31, ' + id + '9')
       };
-      
+
       return groups;
     };
-    
+
     /**
      * Grouping function by year.
      */
     var groupSegmentByYear = function(segment, groups, direction) {
       // Grouping by decade
       var year = new Date(segment.timestamp).getFullYear();
-      
+
       groups[year] = {
         id: year,
         groupDisplay: year,
-        timestamp: (direction == 'newest') ? 
+        timestamp: (direction == 'newest') ?
           Date.parse('December 31, ' + year) :
           Date.parse('January 1, ' + year),
         timestampStart: Date.parse('January 1, ' + year),
         timestampEnd: Date.parse('December 31, ' + year)
       };
-      
+
       return groups;
     };
-  
-    // Mix defaults with options.
-    var timelineConfig = $.extend(defaults, options);
-    
-    // As a niceity, if the group function is a string referring
-    // to group function, then use that.
-    timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByYear') ?
-      groupSegmentByYear : timelineConfig.groupFunction;
-    timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByDecade') ?
-      groupSegmentByDecade : timelineConfig.groupFunction;
-   
+
+    /**
+     * Grouping function by month.
+     */
+    var groupSegmentByMonth = function(segment, groups, direction) {
+      var month = new Date(segment.timestamp).getMonth();
+      var year = new Date(segment.timestamp).getFullYear();
+      var _month_str = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      var _time_start = Date.parse(_month_str[month] + ' 1, ' + year);
+      var _time_end = Date.parse(_month_str[(month + 1) % 12] + ' 1, ' + year);
+      var _id = month + year * 100;
+
+      groups[_id] = {
+        id: _id,
+        groupDisplay: _month_str[month] + ' ' + year,
+        timestamp: (direction == 'newest') ? _time_end: _time_start,
+        timestampStart: _time_start,
+        timestampEnd: _time_end
+      };
+
+      return groups;
+    };
+
+    /**
+     * Grouping function by day.
+     */
+    var groupSegmentByDay = function(segment, groups, direction) {
+      var month = new Date(segment.timestamp).getMonth();
+      var year = new Date(segment.timestamp).getFullYear();
+      var day = new Date(segment.timestamp).getDate();
+      var _month_str = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      var _time_start = Date.parse(_month_str[month] + ' ' + day + ', ' + year);
+      var _time_end = Date.parse(_month_str[month] + ' ' + (day+1) + ', ' + year);
+      var _id = day + (month + year * 100) * 100;
+
+      groups[_id] = {
+        id: _id,
+        groupDisplay: _month_str[month] + ' ' + day + ', ' + year,
+        timestamp: (direction == 'newest') ? _time_end: _time_start,
+        timestampStart: _time_start,
+        timestampEnd: _time_end
+      };
+
+      return groups;
+    };
+
+
     // Go through each jquery object
-    return this.each(function() {  
+    return this.each(function() {
       var $thisObj = $(this);
       var groups = {};
       var verticalTimeline = {};
-      
+      var is_update = false;
+
+      // Determine if we are updating or initializing new timeline
+      if (options == "update") {
+
+        // Make sure we have data and that this timeline
+        // has already been initialized prior
+        var priorConfig = $thisObj.data('timelineConfig');
+        if (!$.isArray(new_data) || !priorConfig) { return; }
+
+        // Re-use original configuration
+        var timelineConfig = priorConfig;
+        var groups = $thisObj.data('groups') ? $thisObj.data('groups') : {};
+        timelineConfig.data = new_data;
+
+        is_update = true;
+
+      } else {
+
+        // Unset data objects for this element
+        $thisObj.data('timelineConfig', {});
+        $thisObj.data('groups', {});
+
+        // Mix defaults with options.
+        var timelineConfig = $.extend(true, defaults, options);
+
+        // Save options for later updates
+        $thisObj.data('timelineConfig', $.extend(true, {}, timelineConfig, {data:[]}));
+        // Flag this element to be reset
+        $thisObj.removeClass('vertical-timeline-container');
+      }
+
+      // As a niceity, if the group function is a string referring
+      // to group function, then use that.
+      timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByDay') ?
+          groupSegmentByDay : timelineConfig.groupFunction;
+      timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByMonth') ?
+          groupSegmentByMonth : timelineConfig.groupFunction;
+      timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByYear') ?
+          groupSegmentByYear : timelineConfig.groupFunction;
+      timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByDecade') ?
+          groupSegmentByDecade : timelineConfig.groupFunction;
+
+      // Add in extra markup
+      // - NOTE: this block will completely empty the timeline's DOM element
+      if (!$thisObj.hasClass('vertical-timeline-container')) {
+        $thisObj.html(timelineConfig.buttonTemplate +
+            timelineConfig.timelineTemplate);
+      }
+
       // Add class to mark as processed
       $thisObj.addClass('vertical-timeline-container');
-      
-      // Add in extra markup
-      $thisObj.html(timelineConfig.buttonTemplate + 
-        timelineConfig.timelineTemplate);
-      
+
       /**
        * Handle data loaded in from Tabletop or directly, then render.
        */
@@ -178,24 +265,26 @@
         $.each(data, function(i, val) {
           // Create groups (by year or whatever)
           groups = timelineConfig.groupFunction(val, groups, timelineConfig.defaultDirection);
-    
+
           // Add any other data
           val.sharing = timelineConfig.sharing;
           // Add output to timeline
           $thisObj.find('.vertical-timeline-timeline').append(postTemplate(val));
         });
-  
+        // Save groups for later
+        $thisObj.data('groups', groups);
+
         // Add a group marker for each group
         $.each(groups, function(i, group) {
           $thisObj.find('.vertical-timeline-timeline').append(groupMarkerTemplate(group));
         });
-        
+
         verticalTimeline.handleSharing();
         verticalTimeline.handleExpanding();
         verticalTimeline.handleSorting();
         verticalTimeline.adjustWidth();
         verticalTimeline.handleResizing();
-    
+
         // Start rendering isotope goodness when images are loaded.
         $thisObj.find('.vertical-timeline-timeline').imagesLoaded(function() {
           $thisObj.find('.vertical-timeline-timeline').isotope({
@@ -219,7 +308,66 @@
           });
         });
       };
-      
+
+      /**
+       * Handle updating the timeline with new data.
+       */
+      verticalTimeline.updateTimeline = function(data, tabletop) {
+        var postTemplate  = Handlebars.compile(timelineConfig.postTemplate);
+        var groupMarkerTemplate  = Handlebars.compile(timelineConfig.groupMarkerTemplate);
+
+        // Check for data
+        if (tabletop) {
+          data = tabletop.sheets(timelineConfig.sheetName).all();
+        }
+
+        // Go through data from the sheet.
+        var new_data = "";
+        $.each(data, function(i, val) {
+          // Create groups (by year or whatever)
+          groups = timelineConfig.groupFunction(val, groups, timelineConfig.defaultDirection);
+
+          // Add any other data
+          val.sharing = timelineConfig.sharing;
+          // Add output to timeline
+          new_data += postTemplate(val);
+        });
+        $thisObj.data('groups', groups);
+
+        // Add a group marker for each group
+        $.each(groups, function(i, group) {
+          // - First check if group already exists in timeline
+          if ($('.group-marker.item-group-'+group.id).length == 0) {
+            new_data += groupMarkerTemplate(group);
+          }
+        });
+
+        if (!new_data) { return; }  // Nothing to add?
+
+        var $new_items = $(new_data);
+        // Append .open-close button for each new entry
+        $.each($new_items, function(i, e) {
+          $(this).find('.inner').append(
+            $('<a href="#" class="open-close"></a>').click(function(e) {
+              $(this).siblings('.body').slideToggle(function() {
+                $thisObj.find('.vertical-timeline-timeline').isotope('reLayout');
+              });
+              $(this).parents('.post').toggleClass('closed');
+              $thisObj.find('.expand-collapse-buttons a').removeClass('active');
+              e.preventDefault();
+            })
+          );
+        });
+
+        // Add new templates to timeline
+        $thisObj.find('.vertical-timeline-timeline')
+                .isotope('insert', $new_items);
+
+        // Resizing adjustments for new elements
+        verticalTimeline.adjustWidth();
+        $(window).trigger('resize');
+      };
+
       /**
        * Handle sharing.
        */
@@ -228,7 +376,7 @@
         if (timelineConfig.sharing) {
           $.getScript('//static.ak.fbcdn.net/connect.php/js/FB.Share');
           $.getScript('//platform.twitter.com/widgets.js');
-    
+
           $thisObj.find('.vertical-timeline-timeline .post .share').hover(
             function() {
               $(this).find('.share-trigger').addClass('over');
@@ -241,7 +389,7 @@
           );
         }
       };
-      
+
       /**
        * Handle post expanding/collapsing.
        */
@@ -250,7 +398,7 @@
         $thisObj.find('.vertical-timeline-timeline .item.post').each(function() {
           $(this).find('.inner').append('<a href="#" class="open-close"></a>');
         });
-        
+
         // Handle default state
         if (timelineConfig.defaultExpansion != 'expanded') {
           $thisObj.find('.vertical-timeline-timeline .item').each(function() {
@@ -258,7 +406,7 @@
             $this.find('.body').hide();
             $this.find('.post').toggleClass('closed');
           });
-          
+
           $thisObj.find('.expand-collapse-buttons a').removeClass('active');
           $thisObj.find('.expand-collapse-buttons a.collapse-all').addClass('active');
         };
@@ -272,28 +420,40 @@
           $thisObj.find('.expand-collapse-buttons a').removeClass('active');
           e.preventDefault();
         });
-    
+
         $thisObj.find('.vertical-timeline-buttons a.expand-all').click(function(e) {
+        // - NOTE: .slideDown/slideUp effects cause notable performance
+        //         issues with large data sets...
+        /*
           $thisObj.find('.post .body').slideDown(function() {
             $thisObj.find('.vertical-timeline-timeline').isotope('reLayout');
           });
+        */
+          $thisObj.find('.post .body').css('display', 'block');
+          $thisObj.find('.vertical-timeline-timeline').isotope('reLayout');
           $thisObj.find('.post').removeClass('closed');
           $thisObj.find('.expand-collapse-buttons a').removeClass('active');
           $(this).addClass('active');
           e.preventDefault();
         });
-    
+
         $thisObj.find('.vertical-timeline-buttons a.collapse-all').click(function(e) {
+        // - NOTE: .slideDown/slideUp effects cause notable performance
+        //         issues with large data sets...
+        /*
           $thisObj.find('.post .body').slideUp(function() {
             $thisObj.find('.vertical-timeline-timeline').isotope('reLayout');
           });
+        */
+          $thisObj.find('.post .body').css('display', 'none');
+          $thisObj.find('.vertical-timeline-timeline').isotope('reLayout');
           $thisObj.find('.post').addClass('closed');
           $thisObj.find('.expand-collapse-buttons a').removeClass('active');
           $(this).addClass('active');
           e.preventDefault();
         });
       };
-      
+
       /**
        * Handle sorting.
        */
@@ -303,7 +463,7 @@
           $thisObj.find('.sort-buttons a').removeClass('active');
           $thisObj.find('.sort-buttons a.sort-oldest').addClass('active');
         }
-        
+
         // Handle buttons
         $thisObj.find('.sort-buttons a').click(function(e) {
           var $this = $(this);
@@ -311,7 +471,7 @@
           if ($this.hasClass('active')) {
             return false;
           }
-      
+
           $thisObj.find('.sort-buttons a').removeClass('active');
           $this.addClass('active');
           if ($this.hasClass('sort-newest')) {
@@ -327,7 +487,7 @@
           e.preventDefault();
         });
       };
-      
+
       /**
        * Handle resize.  Uses "jQuery resize event" plugin
        */
@@ -339,7 +499,7 @@
           });
         }
       };
-      
+
       /**
        * Update group markers as they are an interval.
        */
@@ -347,13 +507,13 @@
         $thisObj.find('.group-marker').each(function() {
           var $this = $(this);
           var id = $this.attr('data-id');
-          var timestamp = (direction) ? 
+          var timestamp = (direction) ?
             groups[id].timestampStart : groups[id].timestampEnd;
-          
+
           $this.find('.timestamp').text(timestamp);
         });
       };
-      
+
       /**
        * Adjust width.
        */
@@ -366,16 +526,16 @@
         if (timelineConfig.width === 'auto') {
           w = containerW + 'px';
         }
-        
+
         // Set timeline width
         $thisObj.find('.vertical-timeline-timeline').width(w);
         timelineW = $thisObj.find('.vertical-timeline-timeline').width();
-        
+
         // Set width on posts
         postW = (timelineW / 2) - (timelineConfig.gutterWidth / 2) - 4;
         $thisObj.find('.vertical-timeline-timeline .post').width(postW);
       };
-      
+
       /**
        * Keep the actual line from extending beyond the last item's date tab,
        * and keep centered.
@@ -387,17 +547,17 @@
         var dateOffset = $lastItem.find('.date').position();
         var innerMargin = parseInt($lastItem.find('.inner').css('marginTop'));
         var top = (dateOffset == null) ? 0 : parseInt(dateOffset.top);
-        var y = (itemPosition != null && itemPosition.y != null) ? 
+        var y = (itemPosition != null && itemPosition.y != null) ?
           parseInt(itemPosition.y) : 0;
         var lineHeight = y + innerMargin + top + (dateHeight / 2);
         var $line = $thisObj.find('.line');
         var $timeline = $thisObj.find('.vertical-timeline-timeline');
         var xOffset = ($timeline.width() / 2) - ($line.width() / 2);
-        
+
         $line.height(lineHeight)
           .css('left', xOffset + 'px');
       };
-      
+
       /**
        * Parse each row of data
        */
@@ -409,22 +569,32 @@
             el[key] = el[column];
           }
         });
-        
-        // Parse out the date
-        el['timestamp'] = Date.parse(el['date']);
+
+        // Set timestamp using human date or milliseconds
+        if (typeof el['date'] == 'number') {
+          el['timestamp'] = el['date'];
+        } else {
+          // Parse out the date
+          el['timestamp'] = Date.parse(el['date']);
+        }
         return el;
       };
-    
+
       /**
        * If data is provided directy, the process it manually,
        * otherwise get data via Tabletop and then start rendering.
        */
-      if ($.isArray(timelineConfig.data) && timelineConfig.data.length > 0) {
+      if ($.isArray(timelineConfig.data)) {
         data = [];
         $.each(timelineConfig.data, function(k, d) {
           data.push(verticalTimeline.parseRow(d));
         });
-        verticalTimeline.setupTimeline(data, false);
+        // Update OR create new timeline
+        if (is_update) {
+          verticalTimeline.updateTimeline(data, false);
+        } else {
+          verticalTimeline.setupTimeline(data, false);
+        }
       }
       else {
         var ttOptions = $.extend({
@@ -433,11 +603,11 @@
           wanted: [timelineConfig.sheetName],
           postProcess: verticalTimeline.parseRow
         }, timelineConfig.tabletopOptions);
-        
+
         Tabletop.init(ttOptions);
       }
-    });  
-  };  
+    });
+  };
 
 
   /**
@@ -455,7 +625,7 @@
       props = this.spineAlign,
       gutterWidth = Math.round( this.options.spineAlign && this.options.spineAlign.gutterWidth ) || 0,
       centerX = Math.round(this.element.width() / 2);
-  
+
     $elems.each(function(i, val) {
       var $this = $(this);
       $this.removeClass('last').removeClass('top');
@@ -487,7 +657,7 @@
         else {
           $this.addClass('right');
         }
-        
+
         x = isColA ?
           centerX - ( $this.outerWidth(true) + gutterWidth / 2 ) : // left side
           centerX + (gutterWidth / 2); // right side

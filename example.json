@@ -10,6 +10,7 @@
   },
   {
     "title": "Peregrine Falcon Adult, Morro Bay, CA",
+    "title_icon": "css/img/flickr.png",
     "date": "27 May 2008",
     "displaydate": "May 27",
     "photourl": "http://builtbybalance.com/github-timeline/pic3.jpg",
@@ -19,11 +20,19 @@
   },
   {
     "title": "Peregrine Falcon Adult, Morro Bay, CA",
+    "title_icon": "css/img/flickr.png",
     "date": "27 Oct 2008",
     "displaydate": "Oct 27",
     "photourl": "http://builtbybalance.com/github-timeline/pic3.jpg",
     "caption": "Mike Baird",
     "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
     "readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+  },
+  {
+    "title": "This post has no body",
+    "title_icon": "css/img/question.png",
+    "date": 1223043814000,
+    "displaydate": "Oct 03"
   }
+
 ]

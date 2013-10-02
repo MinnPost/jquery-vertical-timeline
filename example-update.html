@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>jQuery Vertical Timeline - Update Example</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Include CSS for Timeline -->
+    <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+        #load_more, #reset {
+            display: block;
+            width: 300px;
+            margin: 10px auto;
+            font-size: 2em;
+        }
+    </style>
+
+    <!-- Include scripts -->
+    <script type="text/javascript" src="js/libs/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/libs/handlebars-1.0.rc.1.min.js"></script>
+    <script type="text/javascript" src="js/libs/tabletop-zzolo.master-20130402.min.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.isotope.v1.5.21.min.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.ba-resize.v1.1.min.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.imagesloaded.v2.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-veritcal-timeline.js"></script>
+  </head>
+  <body>
+    <button id="reset">RESET</button>
+    <div id="timeline"></div>
+    <button id="load_more">Load More Events</button>
+  </body>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        function resetTimeline() {
+            window.d = new Date();  // Global date keeper
+            var initialData = [{"title": "Initial Post",
+                                "date": d.getTime(),
+                                "displaydate": d.getHours() + ":" + d.getMinutes(),
+                                "caption": d.toISOString()}]
+            $('#timeline').verticalTimeline({
+                defaultExpansion: 'expanded',
+                groupFunction: 'groupSegmentByDay',
+                data: initialData,
+                width: '75%'
+            });
+        }
+
+        function loadMoreEvents() {
+            var numRows = Math.random()*(15) + 15;
+            var events = [];
+            var body, photo_url, draw;
+            for (var i = 0; i < numRows; i++) {
+                // Walk backwards to set earlier posts
+                d = new Date(d.getTime() -
+                        ((Math.random()*(4) + 1) * (60*45000)));
+                body = photo_url = "";
+                draw = Math.random();
+                if (draw > 0.7) {
+                    photo_url = "http://builtbybalance.com/github-timeline/pic3.jpg";
+                } else if (draw > 0.4 && draw <= 0.7) {
+                    body = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu";
+                }
+                events.push({"title": "New Post #" + i,
+                             "date": d.getTime(),
+                             "displaydate": d.getHours() + ":" + d.getMinutes(),
+                             "caption": d.toISOString(),
+                             "body": body,
+                             "photo_url": photo_url});
+            }
+            $('#timeline').verticalTimeline('update', events);
+        }
+        $('#reset').click(resetTimeline);
+        $('#load_more').click(loadMoreEvents);
+        resetTimeline();    // go();
+    });
+  </script>
+</html>
