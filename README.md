@@ -76,6 +76,18 @@ An example of loading JSON data using AJAX.
       });
     </script>
 
+### Updates
+
+You can also update an existing timeline with new data using the following method signature.  This will maintain the same options you set when the timeline was initialized.  This feature is currently limited to JSON data.
+
+    <script type="text/javascript">
+      $.getJSON('./example.json', function(data) {
+        $('.timeline-jquery-example-3').verticalTimeline('update', data);
+      });
+    </script>
+
+This allows for viewing of large amounts of timeline data without loading it all at once, and can be used as part of an infinite scroll feature.  See ```example-update.html``` for a quick demo.
+
 ## Options
 
 The following options can be passed to the plugin when called:
