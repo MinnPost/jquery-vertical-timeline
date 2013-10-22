@@ -24,6 +24,7 @@
       tabletopOptions: {},
       columnMapping: {
         'title': 'title',
+        'title_icon': 'title icon',
         'date': 'date',
         'display_date': 'display date',
         'photo_url': 'photo url',
@@ -36,7 +37,12 @@
         <div class="item post"> \
           <div class="inner"> \
             <div class="timestamp">{{timestamp}}</div> \
-            <div class="title"><h3>{{title}}</h3></div> \
+            <div class="title"> \
+                <h3> \
+                {{#if title_icon}}<img class="title-icon" src="{{title_icon}}" />{{/if}} \
+                {{title}} \
+                </h3> \
+            </div> \
             <div class="date">{{display_date}}</div> \
             <div class="body"> \
               {{#if photo_url}} \
