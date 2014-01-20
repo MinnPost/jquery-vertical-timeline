@@ -1,0 +1,14 @@
+{
+  "name": "jquery-resize",
+  "homepage": "https://github.com/cowboy/jquery-resize",
+  "_release": "21ae0ec06d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "21ae0ec06d751a408165a1714963173c2db6adfa"
+  },
+  "_source": "https://github.com/cowboy/jquery-resize.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/cowboy/jquery-resize.git",
+  "_direct": true
+}

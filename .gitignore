@@ -1,0 +1,30 @@
+node_modules/
+components/
+!dist
+dist/data.js
+dist/templates.js
+
+# Committing bower_components for github hosted examples
+!bower_components/
+
+# General git ignores
+.sass-cache
+.tmp
+.DS_Store
+*.psd
+*.[oa]
+*.py[co]
+*.rbc
+*.egg
+*.egg-info
+develop-eggs
+.installed.cfg
+.Python
+pip-log.txt
+.coverage
+.tox
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
