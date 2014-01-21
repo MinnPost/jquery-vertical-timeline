@@ -37,7 +37,10 @@
   defaultDirection: 'oldest',
   defaultExpansion: 'collapsed',
   groupFunction: 'groupSegmentByDecade',
-  width: '50%'
+  width: '50%',
+  tabletopOptions: {
+    parameterize: 'http://gs-proxy.herokuapp.com/proxy?url='
+  }
 }</code></pre>
     <div class="timeline-jquery-example-mn-gambling cf"></div>
   </div>
@@ -70,7 +73,10 @@
         defaultDirection: 'oldest',
         defaultExpansion: 'collapsed',
         groupFunction: 'groupSegmentByDecade',
-        width: '50%'
+        width: '50%',
+        tabletopOptions: {
+          parameterize: 'http://gs-proxy.herokuapp.com/proxy?url='
+        }
       });
 
       $.getJSON('./example/example.json', function(data) {

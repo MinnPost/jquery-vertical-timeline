@@ -1,6 +1,6 @@
 # jQuery Vertical Timeline
 
-Forked from the [Super Awesome Vertical Timeline](https://github.com/balancemedia/Timeline).  A running example can be found [here](http://minnpost.github.com/jquery-vertical-timeline/example.html).  Please see the Credits below for some restrictions on use.
+Forked from the [Super Awesome Vertical Timeline](https://github.com/balancemedia/Timeline).  A [running example can be found here](http://minnpost.github.com/jquery-vertical-timeline/).  Please see the Credits below for some restrictions on use.
 
 ## How to Use
 
@@ -8,49 +8,43 @@ Forked from the [Super Awesome Vertical Timeline](https://github.com/balancemedi
 
 Create a Google Spreadsheet with the following columns (see options for different names) and publish it.  An example can be found [here](https://docs.google.com/spreadsheet/ccc?key=0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc#gid=0);
 
-* title
-* title icon
-* date
-* display date
-* photo url
-* caption
-* body 
-* read more url
+* `title` - Title of the post.
+* `title icon` - URL to an icon to use for the title.  Should be a 20x20px image.
+* `date` - Must be in the format _Month Day, Year_ (i.e. April 25, 2012).
+* `display date` - How to display the date (i.e. Apr 25).  This will appear in the small box in the spine and should be very short.
+* `photo url` - URL to a photo.
+* `caption` - Caption for the photo.
+* `body` - Body text.
+* `read more url` - URL for the _read more_ link.
 
-**Please note that the the _date_ column must be in the format _Month Day, Year_ (April 25, 2012) for proper javascript parsing.  The _display date_ is just how it is displayed.**
+#### Google data access issue (PLEASE READ)
 
-**Also, all columns must be _plain text_ format, including the two date columns.**
+See the issue how [Tabletop.js accesses Google Spreadsheets](https://github.com/jsoma/tabletop#okay-wait-weve-got-a-big-problem-but-a-solution-too).  Basically you have to set up some sort of proxy for the data as some users will have problems otherwise.
 
-**The _title icon_ field can be a relative or absolute URL, and should be a 20x20 px image for best results.**
+### Install the library
+
+It is easiet to install with [bower]():
+
+    bower install jquery-vertical-timeline
 
 ### Include CSS and JS
 
 Include the CSS:
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="bower_components/jquery-vertical-timeline/dist/jquery-vertical-timeline.min.css">
 
-Include the Javascript.  The following is the un-minified and un-combined version.
+Include the Javascript (dependencies) and library.
 
-    <script type="text/javascript" src="js/libs/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/libs/handlebars-1.0.rc.1.min.js"></script>
-    <script type="text/javascript" src="js/libs/tabletop.master-20121204.min.js"></script>
-    <script type="text/javascript" src="js/libs/jquery.isotope.v1.5.21.min.js"></script>
-    <script type="text/javascript" src="js/libs/jquery.ba-resize.v1.1.min.js"></script>
-    <script type="text/javascript" src="js/libs/jquery.imagesloaded.v2.1.0.min.js"></script>
-    <script type="text/javascript" src="js/jquery-veritcal-timeline.js"></script>
-    
-OR, use the built version (note, this will only be updated with a specific version):
-
-    <script type="text/javascript" src="js/libs.combined.min.js"></script>
-    <script type="text/javascript" src="js/jquery-veritcal-timeline.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-vertical-timeline/dist/jquery-vertical-timeline.libs.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-vertical-timeline/dist/jquery-vertical-timeline.min.js"></script>
 
 ### Run
 
 First, include a container for the timeline:
 
-    <div class="timeline-jquery-example-1">
+    <div class="timeline-jquery-example">
     </div>
-    
+
 Call timeline with options.  Note that the ```key``` is the ID of the Google Spreadsheet, and the ```sheetname``` is the name of the sheet.
 
     <script type="text/javascript">
@@ -61,9 +55,9 @@ Call timeline with options.  Note that the ```key``` is the ID of the Google Spr
         });
       });
     </script>
-    
+
 You can also use JSON data directly.  See options below.
-    
+
 ## Options
 
 The following options can be passed to the plugin when called:
@@ -84,7 +78,7 @@ The following options can be passed to the plugin when called:
   * Default value: ```expanded```
 * ```groupFunction```: The function that will handle the grouping of the timeline.  There are two functions that can be called with a string, otherwise provide your own custom function.
   * Data type: string or function
-  * Allowed values: function, ```groupSegmentByYear```, ```groupSegmentByDecade```
+  * Allowed values: function, ```groupSegmentByYear```, ```groupSegmentByDecade```, ```groupSegmentByDay```
   * Default value: ```groupSegmentByYear```
 * ```sharing```: This turns off and on sharing, but currently should not be used.
   * Data type: boolean
@@ -131,12 +125,46 @@ The following options can be passed to the plugin when called:
 * ```tabletopOptions```: Overrided tabletop options.  See [Tabletop project](https://github.com/jsoma/tabletop).
   * Data type: object
   * Default value: ```{}```
-  
-## Building
 
-Building is only done for specific versions; it simply combines all the libraries and minifies the timeline plugin.  To run the build process, make sure you have [UglifyJS](https://github.com/mishoo/UglifyJS) and run the following:
+## Development
 
-    bash build.sh
+### Prerequisites
+
+All commands are assumed to on the [command line](http://en.wikipedia.org/wiki/Command-line_interface), often called the Terminal, unless otherwise noted.  The following will install technologies needed for the other steps and will only needed to be run once on your computer so there is a good chance you already have these technologies on your computer.
+
+1. Install [Git](http://git-scm.com/).
+   * On a Mac, install [Homebrew](http://brew.sh/), then do: `brew install git`
+1. Install [NodeJS](http://nodejs.org/).
+   * On a Mac, do: `brew install node`
+1. Optionally, for development, install [Grunt](http://gruntjs.com/): `npm install -g grunt-cli`
+1. Install [Bower](http://bower.io/): `npm install -g bower`
+1. Install [Ruby](http://www.ruby-lang.org/en/downloads/), though it is probably already installed on your system.
+1. Install [Bundler](http://gembundler.com/): `gem install bundler`
+1. Install [Sass](http://sass-lang.com/): `gem install sass`
+   * On a Mac do: `sudo gem install sass`
+1. Install [Compass](http://compass-style.org/): `gem install compass`
+   * On a Mac do: `sudo gem install compass`
+
+### Get code and install packages
+
+Get the code for this project and install the necessary dependency libraries and packages.
+
+1. Check out this code with [Git](http://git-scm.com/): `git clone https://github.com/MinnPost/jquery-vertical-timeline.git`
+1. Go into the template directory: `cd jquery-vertical-timeline`
+1. Install NodeJS packages: `npm install`
+1. Install Bower components: `bower install`
+
+### Running
+
+1. Run: `grunt server`
+    * This will run a local webserver for development and you can view the application in your web browser at [http://localhost:8888](http://localhost:8888).
+    * The server watches for files changes and rebuilds project when needed.
+
+### Build
+
+To build or compile all the assets together for easy and efficient deployment, do the following.  It will create all the files in the `dist/` folder.
+
+1. Run: `grunt`
 
 ## Bugs and hacks
 
