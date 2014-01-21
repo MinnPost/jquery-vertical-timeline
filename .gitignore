@@ -1,7 +1,10 @@
 node_modules/
 components/
-bower_components
+bower_components/*
 !dist
+
+# Include some parts for example
+!bower_components/normalize-css/
 
 # General git ignores
 .sass-cache
