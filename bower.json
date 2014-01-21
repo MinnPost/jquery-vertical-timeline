@@ -22,5 +22,8 @@
     "jquery-resize": "https://github.com/cowboy/jquery-resize.git",
     "imagesloaded": "~3.1.0",
     "isotope": "https://github.com/desandro/isotope.git#~1.5.25"
+  },
+  "devDependencies": {
+    "normalize-css": "~2.1.3"
   }
 }

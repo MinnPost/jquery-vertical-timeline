@@ -1,0 +1,70 @@
+/**
+ * Example CSS
+ */
+
+body {
+  margin: 0;
+  padding: 0 1em;
+}
+
+.example {
+  padding-bottom: 4em;
+  margin-bottom: 4em;
+  border-bottom: 1px solid #BABABA;
+}
+
+.example h1 {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 1em;
+}
+
+.example a.spreadsheet-link,
+.example a.spreadsheet-link:visited {
+  color: blue;
+  display: block;
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.25em;
+}
+
+code {
+  max-width: 960px;
+  margin: 0 auto;
+  display: block;
+  padding: .85em;
+  margin-bottom: 2em;
+  background-color: #EFEFEF;
+  border-radius: .25em;
+}
+
+/**
+ * http://nicolasgallagher.com/micro-clearfix-hack/
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
