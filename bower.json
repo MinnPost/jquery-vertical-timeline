@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "handlebars": "~1.3.0",
-    "tabletop": "~1.3.2",
+    "tabletop": "https://github.com/zzolo/tabletop.git#feature-array-indexof",
     "jquery": "~1.10",
     "jquery-resize": "https://github.com/cowboy/jquery-resize.git",
     "imagesloaded": "~3.1.0",

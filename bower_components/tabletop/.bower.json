@@ -1,6 +1,5 @@
 {
   "name": "tabletop",
-  "version": "1.3.2",
   "homepage": "https://github.com/jsoma/tabletop",
   "authors": [
     "\"\""
@@ -20,14 +19,13 @@
     "test",
     "tests"
   ],
-  "_release": "1.3.2",
+  "_release": "97acbb1432",
   "_resolution": {
-    "type": "version",
-    "tag": "v1.3.2",
-    "commit": "884f3156b8ce73b5e16b151914fd1aa16a68b39d"
+    "type": "branch",
+    "branch": "feature-array-indexof",
+    "commit": "97acbb143254e265cb4bd5c2bb47d9c70005c03a"
   },
-  "_source": "git://github.com/jsoma/tabletop.git",
-  "_target": "~1.3.2",
-  "_originalSource": "tabletop",
-  "_direct": true
+  "_source": "https://github.com/zzolo/tabletop.git",
+  "_target": "feature-array-indexof",
+  "_originalSource": "https://github.com/zzolo/tabletop.git"
 }
