@@ -107,6 +107,18 @@ module.exports = function(grunt) {
       }
     },
 
+    // Replace some stuff
+    replace: {
+      imagePath: {
+        src: ['dist/<%= pkg.name %>.css'],
+        dest: 'dist/<%= pkg.name %>.css',
+        replacements: [{
+          from: "url('../../images",
+          to: "url('./images"
+        }]
+      }
+    },
+
     // Minify JS for network efficiency
     uglify: {
       options: {
@@ -156,10 +168,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-text-replace');
 
 
   // Default build task
-  grunt.registerTask('default', ['jshint', 'compass:dist', 'clean', 'copy', 'concat', 'cssmin', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'compass:dist', 'clean', 'copy', 'concat', 'replace', 'cssmin', 'uglify']);
 
   // Server and watch
   grunt.registerTask('watcher', ['default']);
