@@ -391,8 +391,8 @@
         var dateHeight = $lastItem.find('.date').height();
         var dateOffset = $lastItem.find('.date').position();
         var innerMargin = parseInt($lastItem.find('.inner').css('marginTop'), 10);
-        var top = (!dateOffset) ? 0 : parseInt(dateOffset.top, 10);
-        var y = (!itemPosition && !itemPosition.y) ?
+        var top = (dateOffset === null) ? 0 : parseInt(dateOffset.top, 10);
+        var y = (itemPosition && itemPosition.y) ?
           parseInt(itemPosition.y, 10) : 0;
         var lineHeight = y + innerMargin + top + (dateHeight / 2);
         var $line = $thisObj.find('.line');
