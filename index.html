@@ -20,7 +20,8 @@
 <pre><code>// Uses example/example.json data soure
 {
   data: data,
-  width: '75%'
+  width: '75%',
+  handleResize: true
 }</code></pre>
     <div class="timeline-jquery-example-kitten cf"></div>
   </div>
@@ -59,7 +60,7 @@
 
   <!-- Include scripts -->
   <script type="text/javascript" src="dist/jquery-vertical-timeline.libs.js"></script>
-  <script type="text/javascript" src="dist/jquery-vertical-timeline.min.js"></script>
+  <script type="text/javascript" src="dist/jquery-vertical-timeline.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -75,7 +76,8 @@
       $.getJSON('./example/example.json', function(data) {
         $('.timeline-jquery-example-kitten').verticalTimeline({
           data: data,
-          width: '75%'
+          width: '75%',
+          handleResize: true
         });
       });
 

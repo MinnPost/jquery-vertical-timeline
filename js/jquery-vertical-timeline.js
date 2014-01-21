@@ -82,7 +82,7 @@
         </div> \
       ',
       buttonTemplate: ' \
-        <div class="vertical-timeline-buttons"> \
+        <div class="vertical-timeline-buttons clearfix"> \
           <div class="expand-collapse-buttons"> \
             <a class="expand-all active" href="#"><span>Expand all</span></a> \
             <a class="collapse-all" href="#"><span>Collapse all</span></a> \
@@ -391,7 +391,7 @@
         var dateHeight = $lastItem.find('.date').height();
         var dateOffset = $lastItem.find('.date').position();
         var innerMargin = parseInt($lastItem.find('.inner').css('marginTop'), 10);
-        var top = (dateOffset === null) ? 0 : parseInt(dateOffset.top, 10);
+        var top = (dateOffset === undefined) ? 0 : parseInt(dateOffset.top, 10);
         var y = (itemPosition && itemPosition.y) ?
           parseInt(itemPosition.y, 10) : 0;
         var lineHeight = y + innerMargin + top + (dateHeight / 2);

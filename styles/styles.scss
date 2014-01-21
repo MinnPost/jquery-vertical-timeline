@@ -8,7 +8,29 @@
 $font-sans-serif: Georgia, sans-serif;
 
 
+// Mixins
+@mixin inline-block() {
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
 
+@mixin clearfix() {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// Styles
 .vertical-timeline-container {
 
   .vertical-timeline-timeline {
@@ -16,18 +38,8 @@ $font-sans-serif: Georgia, sans-serif;
     margin: 20px auto 30px auto;
   }
 
-  .clearfix:before,
-  .clearfix:after {
-    content: "";
-    display: table;
-  }
-
-  .clearfix:after {
-    clear: both;
-  }
-
   .clearfix {
-    *zoom: 1;
+    @include clearfix();
   }
 
   .post {
@@ -246,32 +258,33 @@ $font-sans-serif: Georgia, sans-serif;
     line-height: 26px;
   }
 
+  // Buttons
   .vertical-timeline-buttons {
     text-align: center;
-    margin: 30px 0 15px 0;
-    height: 30px;
-  }
+    margin: 20px 0 10px 0;
 
-  .vertical-timeline-buttons div {
-    display: inline;
-    padding: 0 10px;
-  }
+    div {
+      @include inline-block();
+    }
 
-  .vertical-timeline-buttons a {
-    width: 126px;
-    height: 28px;
-    border: 1px #adadad solid;
-    @include border-radius(2px);
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 10px 12px;
-    background-color: #FFF;
-    color: #3b3b3b;
-    text-transform: uppercase;
-  }
+    .expand-collapse-buttons {
+      margin-right: 20px;
+    }
 
-  .vertical-timeline-buttons {
+    a {
+      @include inline-block();
+      width: 126px;
+      border: 1px #adadad solid;
+      @include border-radius(2px);
+      font-size: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 10px 12px;
+      background-color: #FFF;
+      color: #3b3b3b;
+      text-transform: uppercase;
+    }
+
     a.active:hover,
     a.active {
       background-color: #f6f6f6;
@@ -303,6 +316,15 @@ $font-sans-serif: Georgia, sans-serif;
     a.sort-oldest span {
       background-image: image-url("down-arrows.png");
       background-repeat: no-repeat;
+    }
+
+
+    @media (max-width: 675px) {
+
+      .expand-collapse-buttons,
+      .sort-buttons {
+        margin: 0 0 10px 0;
+      }
     }
   }
 
