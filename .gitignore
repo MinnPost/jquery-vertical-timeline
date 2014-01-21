@@ -1,11 +1,7 @@
 node_modules/
 components/
+bower_components
 !dist
-dist/data.js
-dist/templates.js
-
-# Committing bower_components for github hosted examples
-!bower_components/
 
 # General git ignores
 .sass-cache
