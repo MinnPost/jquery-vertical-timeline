@@ -82,7 +82,7 @@
         </div> \
       ',
       buttonTemplate: ' \
-        <div class="vertical-timeline-buttons"> \
+        <div class="vertical-timeline-buttons clearfix"> \
           <div class="expand-collapse-buttons"> \
             <a class="expand-all active" href="#"><span>Expand all</span></a> \
             <a class="collapse-all" href="#"><span>Collapse all</span></a> \
@@ -144,6 +144,29 @@
       return groups;
     };
 
+    /**
+     * Grouping function by day.
+     */
+    var groupSegmentByDay = function(segment, groups, direction) {
+      var month = new Date(segment.timestamp).getMonth();
+      var year = new Date(segment.timestamp).getFullYear();
+      var day = new Date(segment.timestamp).getDate();
+      var _month_str = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      var _time_start = Date.parse(_month_str[month] + ' ' + day + ', ' + year);
+      var _time_end = Date.parse(_month_str[month] + ' ' + (day+1) + ', ' + year);
+      var _id = day + (month + year * 100) * 100;
+
+      groups[_id] = {
+        id: _id,
+        groupDisplay: _month_str[month] + ' ' + day + ', ' + year,
+        timestamp: (direction == 'newest') ? _time_end: _time_start,
+        timestampStart: _time_start,
+        timestampEnd: _time_end
+      };
+
+      return groups;
+    };
+
     // Mix defaults with options.
     var timelineConfig = $.extend(defaults, options);
 
@@ -153,6 +176,8 @@
       groupSegmentByYear : timelineConfig.groupFunction;
     timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByDecade') ?
       groupSegmentByDecade : timelineConfig.groupFunction;
+    timelineConfig.groupFunction = (timelineConfig.groupFunction === 'groupSegmentByDay') ?
+      groupSegmentByDay : timelineConfig.groupFunction;
 
     // Go through each jquery object
     return this.each(function() {
@@ -391,7 +416,7 @@
         var dateHeight = $lastItem.find('.date').height();
         var dateOffset = $lastItem.find('.date').position();
         var innerMargin = parseInt($lastItem.find('.inner').css('marginTop'), 10);
-        var top = (dateOffset === null) ? 0 : parseInt(dateOffset.top, 10);
+        var top = (dateOffset === undefined) ? 0 : parseInt(dateOffset.top, 10);
         var y = (itemPosition && itemPosition.y) ?
           parseInt(itemPosition.y, 10) : 0;
         var lineHeight = y + innerMargin + top + (dateHeight / 2);
