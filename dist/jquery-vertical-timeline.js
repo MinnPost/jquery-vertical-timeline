@@ -32,78 +32,73 @@
         'body': 'body',
         'read_more_url': 'read more url'
       },
-      postTemplate: ' \
-        <div class="item post"> \
+      postTemplate: '<div class="item post"> \
           <div class="inner"> \
-            <div class="timestamp">{{timestamp}}</div> \
+            <div class="timestamp">{{timestamp}}<\/div> \
             <div class="title"> \
                 <h3> \
-                {{#if title_icon}}<img class="title-icon" src="{{title_icon}}" />{{/if}} \
+                {{#if title_icon}}<img class="title-icon" src="{{title_icon}}" \/>{{\/if}} \
                 {{title}} \
-                </h3> \
-            </div> \
-            <div class="date">{{display_date}}</div> \
+                <\/h3> \
+            <\/div> \
+            <div class="date">{{display_date}}<\/div> \
             <div class="body"> \
               {{#if photo_url}} \
                 <img src="{{photo_url}}" alt=""> \
-              {{/if}} \
+              {{\/if}} \
               {{#if caption}} \
-                <div class="caption">({{caption}})</div> \
-              {{/if}} \
+                <div class="caption">({{caption}})<\/div> \
+              {{\/if}} \
               {{#if body}} \
-                <div class="text">{{{body}}}</div> \
-              {{/if}} \
+                <div class="text">{{{body}}}<\/div> \
+              {{\/if}} \
               <div class="clearfix"> \
                 {{#if read_more_url}} \
-                  <a target="_blank" class="more" href="{{read_more_url}}">READ MORE</a> \
+                  <a target="_blank" class="more" href="{{read_more_url}}">READ MORE<\/a> \
                   {{#if sharing}} \
                     <div class="share"> \
-                      <a href="#" class="share-trigger"></a> \
+                      <a href="#" class="share-trigger"><\/a> \
                       <div class="share-popup"> \
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{read_more_url}}" data-text="{{title}}" data-count="none">Tweet</a> \
-                        <a class="facebook-share-button" name="fb_share" type="button" share_url="{{read_more_url}}">Share</a> \
-                      </div> \
-                    </div> \
-                  {{/if}} \
-                {{/if}} \
-              </div> \
-            </div> \
-          </div> \
-        </div> \
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{read_more_url}}" data-text="{{title}}" data-count="none">Tweet<\/a> \
+                        <a class="facebook-share-button" name="fb_share" type="button" share_url="{{read_more_url}}">Share<\/a> \
+                      <\/div> \
+                    <\/div> \
+                  {{\/if}} \
+                {{\/if}} \
+              <\/div> \
+            <\/div> \
+          <\/div> \
+        <\/div> \
       ',
-      groupMarkerTemplate: ' \
-        <div class="item group-marker item-group-{{id}}" data-id="{{id}}"> \
+      groupMarkerTemplate: '<div class="item group-marker item-group-{{id}}" data-id="{{id}}"> \
           <div class="inner"> \
             <div class="inner2"> \
-              <div class="timestamp">{{timestamp}}</div> \
-              <div class="group">{{groupDisplay}}</div> \
-            </div> \
-          </div> \
-        </div> \
+              <div class="timestamp">{{timestamp}}<\/div> \
+              <div class="group">{{groupDisplay}}<\/div> \
+            <\/div> \
+          <\/div> \
+        <\/div> \
       ',
-      buttonTemplate: ' \
-        <div class="vertical-timeline-buttons clearfix"> \
+      buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
           <div class="expand-collapse-buttons"> \
-            <a class="expand-all active" href="#"><span>Expand all</span></a> \
-            <a class="collapse-all" href="#"><span>Collapse all</span></a> \
-          </div> \
+            <a class="expand-all active" href="#"><span>Expand all<\/span><\/a> \
+            <a class="collapse-all" href="#"><span>Collapse all<\/span><\/a> \
+          <\/div> \
           <div class="sort-buttons"> \
-            <a class="sort-newest active" href="#"><span>Newest first</span></a> \
-            <a class="sort-oldest" href="#"><span>Oldest first</span></a> \
-          </div> \
-        </div> \
+            <a class="sort-newest active" href="#"><span>Newest first<\/span><\/a> \
+            <a class="sort-oldest" href="#"><span>Oldest first<\/span><\/a> \
+          <\/div> \
+        <\/div> \
       ',
-      timelineTemplate: ' \
-        <div class="vertical-timeline-timeline"> \
+      timelineTemplate: '<div class="vertical-timeline-timeline"> \
           <div class="line-container"> \
-            <div class="line"></div> \
-          </div> \
-        </div> \
+            <div class="line"><\/div> \
+          <\/div> \
+        <\/div> \
       ',
-      loadingTemplate: ' \
-        <div class="loading"> \
+      loadingTemplate: '<div class="loading"> \
           Loading... \
-        </div> \
+        <\/div> \
       '
     };
 
