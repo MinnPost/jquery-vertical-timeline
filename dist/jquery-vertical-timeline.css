@@ -2,6 +2,7 @@
  * CSS for timeline-jquery.
  */
 .vertical-timeline-container {
+  *zoom: 1;
   /**
    * Posts
    */
@@ -27,9 +28,17 @@
    * disabling Isotope CSS3 transitions
    */
 }
+.vertical-timeline-container:before, .vertical-timeline-container:after {
+  content: " ";
+  display: table;
+}
+.vertical-timeline-container:after {
+  clear: both;
+}
 .vertical-timeline-container .vertical-timeline-timeline {
   width: 600px;
   margin: 20px auto 30px auto;
+  display: none;
 }
 .vertical-timeline-container .clearfix {
   *zoom: 1;
@@ -40,6 +49,12 @@
 }
 .vertical-timeline-container .clearfix:after {
   clear: both;
+}
+.vertical-timeline-container .loading {
+  text-align: center;
+  font-size: 2em;
+  margin: 1em;
+  color: #565656;
 }
 .vertical-timeline-container .post {
   width: 271px;

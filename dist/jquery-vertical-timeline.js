@@ -99,6 +99,11 @@
             <div class="line"></div> \
           </div> \
         </div> \
+      ',
+      loadingTemplate: ' \
+        <div class="loading"> \
+          Loading... \
+        </div> \
       '
     };
 
@@ -190,6 +195,7 @@
 
       // Add in extra markup
       $thisObj.html(timelineConfig.buttonTemplate +
+        timelineConfig.loadingTemplate +
         timelineConfig.timelineTemplate);
 
       /**
@@ -228,6 +234,11 @@
 
         // Start rendering isotope goodness when images are loaded.
         $thisObj.find('.vertical-timeline-timeline').imagesLoaded(function() {
+          // Hide loading and show timeline
+          $thisObj.find('.loading').slideUp();
+          $thisObj.find('.vertical-timeline-timeline').show();
+
+          // Isotopize
           $thisObj.find('.vertical-timeline-timeline').isotope({
             itemSelector : '.item',
             transformsEnabled: true,
@@ -245,6 +256,9 @@
             itemPositionDataEnabled: true,
             onLayout: function($elems, instance) {
               verticalTimeline.adjustLine();
+            },
+            containerStyle: {
+              position: 'relative'
             }
           });
         });
@@ -398,11 +412,11 @@
         }
 
         // Set timeline width
-        $thisObj.find('.vertical-timeline-timeline').width(w);
+        $thisObj.find('.vertical-timeline-timeline').css('width', w);
         timelineW = $thisObj.find('.vertical-timeline-timeline').width();
 
         // Set width on posts
-        postW = (timelineW / 2) - (timelineConfig.gutterWidth / 2) - 4;
+        postW = (timelineW / 2) - (timelineConfig.gutterWidth / 2) - 6;
         $thisObj.find('.vertical-timeline-timeline .post').width(postW);
       };
 
