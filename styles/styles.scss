@@ -32,14 +32,25 @@ $font-sans-serif: Georgia, sans-serif;
 
 // Styles
 .vertical-timeline-container {
+  @include clearfix();
 
   .vertical-timeline-timeline {
     width: 600px;
     margin: 20px auto 30px auto;
+
+    // Will show when images are loaded
+    display: none;
   }
 
   .clearfix {
     @include clearfix();
+  }
+
+  .loading {
+    text-align: center;
+    font-size: 2em;
+    margin: 1em;
+    color: #565656;
   }
 
 
