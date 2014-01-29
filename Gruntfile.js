@@ -95,10 +95,10 @@ module.exports = function(grunt) {
       libs: {
         src: [
           'bower_components/jquery/jquery.min.js',
-          'bower_components/handlebars/handlebars.min.js',
+          'bower_components/underscore/underscore-min.js',
           'bower_components/tabletop/src/tabletop.js',
+          'bower_components/momentjs/min/moment.min.js',
           'bower_components/isotope/jquery.isotope.min.js',
-          'bower_components/jquery-resize/jquery.ba-resize.min.js',
           'bower_components/eventEmitter/eventEmitter.min.js',
           'bower_components/eventie/eventie.js',
           'bower_components/imagesloaded/imagesloaded.js'

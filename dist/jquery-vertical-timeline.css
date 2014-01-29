@@ -89,11 +89,11 @@
 .vertical-timeline-container .post h3 {
   margin: 0;
   font-family: Georgia, sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: normal;
   color: #010101;
   padding-right: 30px;
-  line-height: 1.3;
+  line-height: 1.3em;
 }
 .vertical-timeline-container .post .caption {
   color: #9d9d9d;
@@ -103,6 +103,12 @@
 }
 .vertical-timeline-container .post .body {
   margin-top: 10px;
+}
+.vertical-timeline-container .post.collapsed .body {
+  display: none;
+}
+.vertical-timeline-container .post.expanded .body {
+  display: block;
 }
 .vertical-timeline-container .post .body img {
   max-width: 100%;
@@ -122,7 +128,7 @@
   right: 11px;
   top: 11px;
 }
-.vertical-timeline-container .post.closed a.open-close {
+.vertical-timeline-container .post.collapsed a.open-close {
   background-position: left bottom;
 }
 .vertical-timeline-container .post .title .title-icon {
@@ -142,14 +148,14 @@
 .vertical-timeline-container .post a.more {
   color: #676767;
   text-decoration: none;
+  text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  width: 80%;
-  height: 28px;
+  padding: 4px 15px;
+  margin: 5px auto 0 auto;
   border: 1px #BDBDBD solid;
   display: block;
-  float: left;
   line-height: 28px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -162,56 +168,6 @@
 }
 .vertical-timeline-container .post a.more:hover {
   background-color: #FAFAFA;
-}
-.vertical-timeline-container .post a.share-trigger {
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  width: 20%;
-  height: 28px;
-  border: 1px #87b2d3 solid;
-  background: #d6e5f0 url('./images/icon-share.png?1390344614') no-repeat center center;
-  display: block;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-box-shadow: 0px 1px 1px 0px #87b2d3;
-  -moz-box-shadow: 0px 1px 1px 0px #87b2d3;
-  box-shadow: 0px 1px 1px 0px #87b2d3;
-}
-.vertical-timeline-container .post a.share-trigger.over,
-.vertical-timeline-container .post a.share-trigger:hover {
-  background-color: #FFF;
-}
-.vertical-timeline-container .post .share {
-  position: relative;
-  float: right;
-  width: 30px;
-  height: 30px;
-}
-.vertical-timeline-container .post .share-popup {
-  display: none;
-  background: transparent url('./images/popup.png?1390344614') no-repeat;
-  width: 166px;
-  height: 50px;
-  position: absolute;
-  top: -61px;
-  left: -126px;
-  text-align: center;
-  padding-top: 15px;
-}
-.vertical-timeline-container .post .share-popup .share-popup .twitter-share-button {
-  position: absolute;
-  left: 20px;
-  top: 15px;
-}
-.vertical-timeline-container .post .share-popup .facebook-share-button {
-  position: absolute;
-  right: 20px;
-  top: 12px;
 }
 .vertical-timeline-container .post .date {
   color: #6a6a6a;
@@ -321,12 +277,12 @@
 }
 .vertical-timeline-container .vertical-timeline-buttons a.expand-all span,
 .vertical-timeline-container .vertical-timeline-buttons a.sort-newest span {
-  background-image: url('./images/up-arrows.png?1390344614');
+  background-image: url('./images/down-arrows.png?1390344614');
   background-repeat: no-repeat;
 }
 .vertical-timeline-container .vertical-timeline-buttons a.collapse-all span,
 .vertical-timeline-container .vertical-timeline-buttons a.sort-oldest span {
-  background-image: url('./images/down-arrows.png?1390344614');
+  background-image: url('./images/up-arrows.png?1390344614');
   background-repeat: no-repeat;
 }
 @media (max-width: 675px) {

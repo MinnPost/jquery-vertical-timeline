@@ -88,11 +88,11 @@ $font-sans-serif: Georgia, sans-serif;
     h3 {
       margin: 0;
       font-family: $font-sans-serif;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: normal;
       color: #010101;
       padding-right: 30px;
-      line-height: 1.3;
+      line-height: 1.3em;
     }
 
     .caption {
@@ -104,6 +104,13 @@ $font-sans-serif: Georgia, sans-serif;
 
     .body {
       margin-top: 10px;
+    }
+
+    &.collapsed .body {
+      display: none;
+    }
+    &.expanded .body {
+      display: block;
     }
 
     .body img {
@@ -127,7 +134,7 @@ $font-sans-serif: Georgia, sans-serif;
       top: 11px;
     }
 
-    &.closed a.open-close {
+    &.collapsed a.open-close {
       background-position: left bottom;
     }
 
@@ -151,14 +158,14 @@ $font-sans-serif: Georgia, sans-serif;
     a.more {
       color: #676767;
       text-decoration: none;
+      text-transform: uppercase;
       font-size: 12px;
       font-weight: bold;
       text-align: center;
-      width: 80%;
-      height: 28px;
+      padding: 4px 15px;
+      margin: 5px auto 0 auto;
       border: 1px #BDBDBD solid;
       display: block;
-      float: left;
       line-height: 28px;
       @include border-radius(2px);
       @include box-shadow(0px 1px 1px 0px #BDBDBD);
@@ -166,56 +173,6 @@ $font-sans-serif: Georgia, sans-serif;
 
     a.more:hover {
       background-color: #FAFAFA;
-    }
-
-    a.share-trigger {
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: bold;
-      text-align: center;
-      width: 20%;
-      height: 28px;
-      border: 1px #87b2d3 solid;
-      background: #d6e5f0 image-url("icon-share.png") no-repeat center center;
-      display: block;
-      @include border-radius(2px);
-      @include box-shadow(0px 1px 1px 0px #87b2d3);
-    }
-
-    a.share-trigger.over,
-    a.share-trigger:hover {
-      background-color: #FFF;
-    }
-
-    .share {
-      position: relative;
-      float: right;
-      width: 30px;
-      height: 30px;
-    }
-
-    .share-popup {
-      display: none;
-      background: transparent image-url("popup.png") no-repeat;
-      width: 166px;
-      height: 50px;
-      position: absolute;
-      top: -61px;
-      left: -126px;
-      text-align: center;
-      padding-top: 15px;
-
-      .share-popup .twitter-share-button {
-        position: absolute;
-        left: 20px;
-        top: 15px;
-      }
-
-      .facebook-share-button {
-        position: absolute;
-        right: 20px;
-        top: 12px;
-      }
     }
 
     .date {
@@ -336,13 +293,13 @@ $font-sans-serif: Georgia, sans-serif;
 
     a.expand-all span,
     a.sort-newest span {
-      background-image: image-url("up-arrows.png");
+      background-image: image-url("down-arrows.png");
       background-repeat: no-repeat;
     }
 
     a.collapse-all span,
     a.sort-oldest span {
-      background-image: image-url("down-arrows.png");
+      background-image: image-url("up-arrows.png");
       background-repeat: no-repeat;
     }
 
