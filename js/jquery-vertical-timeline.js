@@ -32,7 +32,7 @@
     defaultExpansion: 'expanded',
     groupFunction: 'groupSegmentByYear',
     sharing: false,
-    gutterWidth: 56,
+    gutterWidth: 57,
     width: 'auto',
     handleResize: false,
     tabletopOptions: {},
