@@ -10,8 +10,8 @@ Create a Google Spreadsheet with the following columns (see options for differen
 
 * `title` - Title of the post.
 * `title icon` - URL to an icon to use for the title.  Should be a 20x20px image.
-* `date` - Must be in the format _Month Day, Year_ (i.e. April 25, 2012).
-* `display date` - How to display the date (i.e. Apr 25).  This will appear in the small box in the spine and should be very short.
+* `date` - Needs to be in one of the following formats: _'MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY'_.  A different parsing format can be used with the `dateParse` option.
+* `display date` - How to display the date (i.e. Jan 1).  This will appear in the small box in the spine and should be very short.
 * `photo url` - URL to a photo.
 * `caption` - Caption for the photo.
 * `body` - Body text.
@@ -23,9 +23,13 @@ See the issue how [Tabletop.js accesses Google Spreadsheets](https://github.com/
 
 ### Install the library
 
-It is easiet to install with [bower]():
+It is easiet to install with [bower](http://bower.io/).
 
     bower install jquery-vertical-timeline
+
+This will install the dependencies as well: [jQuery](http://jquery.com/), [Underscore](http://underscorejs.org/), [TabletopJS](https://github.com/jsoma/tabletop) (this should actually be optional), [MomentJS](http://momentjs.com/), [Isotope](http://isotope.metafizzy.co/), [ImagesLoaded](https://github.com/desandro/imagesloaded)
+
+Do note that [Isotope's license](http://isotope.metafizzy.co/docs/license.html) is not clear and you may have to buy a license to use it.
 
 ### Include CSS and JS
 
@@ -33,28 +37,34 @@ Include the CSS:
 
     <link rel="stylesheet" href="bower_components/jquery-vertical-timeline/dist/jquery-vertical-timeline.min.css">
 
+#### Use JS directly
+
 Include the Javascript (dependencies) and library.
 
     <script type="text/javascript" src="bower_components/jquery-vertical-timeline/dist/jquery-vertical-timeline.libs.js"></script>
     <script type="text/javascript" src="bower_components/jquery-vertical-timeline/dist/jquery-vertical-timeline.min.js"></script>
 
-### Run
+#### Use via RequireJS
+
+See the [example.js](https://github.com/MinnPost/jquery-vertical-timeline/blob/master/example/example.js) to see an example.
+
+#### Use via Browserify
+
+This should work if you can get all the dependencies to work as well.
+
+### Use
 
 First, include a container for the timeline:
 
     <div class="timeline-jquery-example">
     </div>
 
-Call timeline with options.  Note that the ```key``` is the ID of the Google Spreadsheet, and the ```sheetname``` is the name of the sheet.
+Call timeline with options.  Note that the `key` is the ID of the Google Spreadsheet, and the `sheetname` is the name of the sheet.
 
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('.timeline-jquery-example-1').verticalTimeline({
-          key: '0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc',
-          sheetName: 'Posts'
-        });
+      $('.timeline-jquery-example-1').verticalTimeline({
+        key: '0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc',
+        sheetName: 'Posts'
       });
-    </script>
 
 You can also use JSON data directly.  See options below.
 
@@ -62,41 +72,44 @@ You can also use JSON data directly.  See options below.
 
 The following options can be passed to the plugin when called:
 
-* ```key```: This is the ID of the Google Spreadsheet.
+* `key`: This is the ID of the Google Spreadsheet.
   * Data type: string
-  * Default value: ```0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc```
-* ```sheetName```: This is name of the sheet in the Google Spreadsheet.
+  * Default value: `0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc`
+* `sheetName`: This is name of the sheet in the Google Spreadsheet.
   * Data type: string
-  * Default value: ```Posts```
-* ```defaultDirection```: This is default order of the timeline.
+  * Default value: `Posts`
+* `dateParse`: A [moment.js parser formating string or array](http://momentjs.com/docs/#/parsing/string-formats/) that will parse the `date` field.
+  * Data type: string or array of strings
+  * Default value `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY']`
+* `defaultDirection`: This is default order of the timeline.
   * Data type: string
-  * Allowed values: ```newest```, ```oldest```
-  * Default value: ```newest```
-* ```defaultExpansion```: This is default state of the posts.
+  * Allowed values: `newest`, `oldest`
+  * Default value: `newest`
+* `defaultExpansion`: This is default state of the posts.
   * Data type: string
-  * Allowed values: ```expanded```, ```collapsed```
-  * Default value: ```expanded```
-* ```groupFunction```: The function that will handle the grouping of the timeline.  There are two functions that can be called with a string, otherwise provide your own custom function.
+  * Allowed values: `expanded`, `collapsed`
+  * Default value: `expanded`
+* `groupFunction`: The function that will handle the grouping of the timeline.  There are two functions that can be called with a string, otherwise provide your own custom function.
   * Data type: string or function
-  * Allowed values: function, ```groupSegmentByYear```, ```groupSegmentByDecade```, ```groupSegmentByDay```
-  * Default value: ```groupSegmentByYear```
-* ```sharing```: This turns off and on sharing, but currently should not be used.
+  * Allowed values: function, `groupSegmentByYear`, `groupSegmentByDecade`, `groupSegmentByDay`
+  * Default value: `groupSegmentByYear`
+* `sharing`: This turns off and on sharing, but currently should not be used.
   * Data type: boolean
-  * Allowed values: ```false```, ```true```
-  * Default value: ```false```
-* ```gutterWidth```: The distance in pixels between post bodies.
+  * Allowed values: `false`, `true`
+  * Default value: `false`
+* `gutterWidth`: The distance in pixels between post bodies.
   * Data type: integer
-  * Default value: ```56```
-* ```width```: The CSS-valid width of the timeline.  The default is ```auto``` and will use the container.
+  * Default value: `56`
+* `width`: The CSS-valid width of the timeline.  The default is `auto` and will use the container.
   * Data type: string
-  * Default value: ```auto```
-* ```handleResize```: Enables handling the resize of the timeline to adjust widths.  This is a bit buggy.
+  * Default value: `auto`
+* `handleResize`: Enables handling the resize of the timeline to adjust widths.  This is a bit buggy.
   * Data type: boolean
-  * Allowed values: ```false```, ```true```
-  * Default value: ```false```
-* ```columnMapping```: This maps specific columns.  This should be an a simple object, where the key is the value is the column expected by the timeline, and the name of the column in the spreadsheet.
+  * Allowed values: `false`, `true`
+  * Default value: `false`
+* `columnMapping`: This maps specific columns.  This should be an a simple object, where the key is the value is the column expected by the timeline, and the name of the column in the spreadsheet.
   * Data type: object
-  * Default value: ```{
+  * Default value: `{
         'title': 'title',
         'title_icon': 'title icon',
         'date': 'date',
@@ -106,25 +119,25 @@ The following options can be passed to the plugin when called:
         'body': 'body',
         'read_more_url': 'read more url',
         'title': 'title'
-      }```
-* ```postTemplate```: HTML template for each post.
+      }`
+* `postTemplate`: HTML template for each post.
   * Data type: string
   * Default value: (see code)
-* ```groupMarkerTemplate```: HTML template for each group marker.
+* `groupMarkerTemplate`: HTML template for each group marker.
   * Data type: string
   * Default value: (see code)
-* ```buttonTemplate```: HTML template for the top buttons.
+* `buttonTemplate`: HTML template for the top buttons.
   * Data type: string
   * Default value: (see code)
-* ```timelineTemplate```: HTML template for the timeline and middle line.
+* `timelineTemplate`: HTML template for the timeline and middle line.
   * Data type: string
   * Default value: (see code)
-* ```data```: A javascript array of objects that can be substitued for getting data from a Google Spreadsheet.  See the ```example.json``` file for an example structure of the data.
+* `data`: A javascript array of objects that can be substitued for getting data from a Google Spreadsheet.  See the `example.json` file for an example structure of the data.
   * Data type: object
   * Default value: [none]
-* ```tabletopOptions```: Overrided tabletop options.  See [Tabletop project](https://github.com/jsoma/tabletop).
+* `tabletopOptions`: Overrided tabletop options.  See [Tabletop project](https://github.com/jsoma/tabletop).
   * Data type: object
-  * Default value: ```{}```
+  * Default value: `{}`
 
 ## Development
 
@@ -177,8 +190,3 @@ To build or compile all the assets together for easy and efficient deployment, d
 ## Credits
 
 [Balance Media](http://www.builtbybalance.com) for the design and coding.
-
-The following plugins/libraries are used:
-[jQuery](http://jquery.com/), [Isotope](http://isotope.metafizzy.co), [Tabletop.js](http://github.com/jsoma/tabletop), [Handlebars.js](http://handlebarsjs.com/), [jQuery imagesLoaded plugin](http://github.com/desandro/imagesloaded), and [jQuery resize event](http://benalman.com/projects/jquery-resize-plugin/)
-
-NOTE: All of the elements are free for non-commercial use. Commercial use of [Isotope](http://isotope.metafizzy.co) requires a $25 [license](http://metafizzy.co/#isotope-license).

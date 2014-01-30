@@ -27,7 +27,7 @@
   var defaultsOptions = {
     key: 'https://docs.google.com/spreadsheet/pub?key=0AsmHVq28GtVJdG1fX3dsQlZrY18zTVA2ZG8wTXdtNHc&output=html',
     sheetName: 'Posts',
-    dateParse: 'MMMM DD, YYYY',
+    dateParse: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY'],
     defaultDirection: 'newest',
     defaultExpansion: 'expanded',
     groupFunction: 'groupSegmentByYear',
@@ -368,7 +368,7 @@
       timelineW = this.$timeline.width();
 
       // Set width on posts
-      postW = (timelineW / 2) - (this.options.gutterWidth / 2) - 6;
+      postW = (timelineW / 2) - (this.options.gutterWidth / 2) - 3;
       this.$timeline.find('.post').width(postW);
     },
 
