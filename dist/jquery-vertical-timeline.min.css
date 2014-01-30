@@ -1,4 +1,4 @@
-/*! jquery-vertical-timeline - v0.2.3 - 2014-01-29
+/*! jquery-vertical-timeline - v0.3.0 - 2014-01-29
 * https://github.com/MinnPost/jquery-vertical-timeline
 * Copyright (c) 2014 MinnPost; Licensed MIT */
 
