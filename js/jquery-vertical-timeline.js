@@ -122,7 +122,7 @@
     if (_.isUndefined(groups[id])) {
       groups[id] = {
         id: id,
-        groupDisplay: id + '0\'s',
+        groupDisplay: id + '0s',
         timestamp: (direction == 'newest') ? end.unix() : start.unix(),
         timestampStart: start.unix(),
         timestampEnd: end.unix()
