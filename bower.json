@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "tabletop": "https://github.com/zzolo/tabletop.git#timeline-fixes",
+    "tabletop": "latest",
     "jquery": "~1.10",
     "imagesloaded": "~3.1.0",
     "isotope": "https://github.com/desandro/isotope.git#~1.5.25",
