@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="https://s3.amazonaws.com/data.minnpost/js/jquery-vertical-timeline-v0.1.4/jquery-vertical-timeline.min.css">
-  <link rel="stylesheet" href="/Users/tomnehil/Code/jquery-vertical-timeline/example/style.css">
+  <link rel="stylesheet" href="example/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
 </head>
 
@@ -64,36 +64,6 @@
 
 
 <script>
-  
-  var example = [
-  {
-    "title": "This timeline uses JSON data directly",
-    "date": "27 Mar 2008",
-    "display date": "Mar 27",
-    "photourl": "http://placekitten.com/600/400",
-    "caption": "Mike Baird",
-    "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
-    "read more url": "http://www.flickr.com/photos/mikebaird/2529507825/"
-  },
-  {
-    "title": "Peregrine Falcon Adult, Morro Bay, CA",
-    "date": "27 May 2008",
-    "display date": "May 27",
-    "photo url": "http://placekitten.com/400/500",
-    "caption": "Mike Baird",
-    "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
-    "read more url": "http://www.flickr.com/photos/mikebaird/2529507825/"
-  },
-  {
-    "title": "Peregrine Falcon Adult, Morro Bay, CA",
-    "date": "27 Oct 2008",
-    "display date": "Oct 27",
-    "photo url": "http://placekitten.com/500/220",
-    "caption": "Mike Baird",
-    "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
-    "read more url": "http://www.flickr.com/photos/mikebaird/2529507825/"
-  }
-]
 
   
     $(document).ready(function() {
@@ -110,7 +80,7 @@
       }
     });
 
-    $.getJSON('/Users/tomnehil/Code/jquery-vertical-timeline/example/example.json', function(data) {
+    $.getJSON('example/example.json', function(data) {
       $('.timeline-jquery-example-kitten').verticalTimeline({
         data: data,
         dateParse: 'DD MMM YYYY',
