@@ -3,11 +3,8 @@ components/
 bower_components/*
 !dist
 
-
 # Include some parts for example
 !bower_components/normalize-css/
-!bower_components/requirejs
-!bower_components/jquery
 
 # General git ignores
 .sass-cache
