@@ -1,0 +1,14 @@
+{
+  "name": "isotope",
+  "homepage": "https://github.com/desandro/isotope",
+  "version": "1.5.26",
+  "_release": "1.5.26",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.5.26",
+    "commit": "86a87c0a999305ec352eec0a2fd7049457239588"
+  },
+  "_source": "https://github.com/desandro/isotope.git",
+  "_target": "~1.5.25",
+  "_originalSource": "https://github.com/desandro/isotope.git"
+}
