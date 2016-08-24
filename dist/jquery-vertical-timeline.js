@@ -272,9 +272,8 @@
 
       // Go through each row
       this.data = _.map(this.data, function(row) {
-        // Column mapping.  Tabletop removes spaces.
+        // Column mapping.
         _.each(this.options.columnMapping, function(column, key) {
-          column = column.split(' ').join('');
           if (!_.isUndefined(row[column])) {
             row[key] = row[column];
           }
