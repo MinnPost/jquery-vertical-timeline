@@ -1,7 +1,10 @@
 node_modules/
 components/
 #bower_components/*
+<<<<<<< HEAD
 bower_components/isotope/_posts/*
+=======
+>>>>>>> 27352ceaff3b1ed65b6cf425e0bfd52ba4e36fc0
 !dist
 
 
