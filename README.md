@@ -23,7 +23,7 @@ See the issue how [Tabletop.js accesses Google Spreadsheets](https://github.com/
 
 ### Install the library
 
-It is easiet to install with [bower](http://bower.io/).
+It is easiest to install with [bower](http://bower.io/).
 
     bower install jquery-vertical-timeline
 
@@ -78,7 +78,7 @@ The following options can be passed to the plugin when called:
 * `sheetName`: This is name of the sheet in the Google Spreadsheet.
   * Data type: string
   * Default value: `Posts`
-* `dateParse`: A [moment.js parser formating string or array](http://momentjs.com/docs/#/parsing/string-formats/) that will parse the `date` field.
+* `dateParse`: A [moment.js parser formatting string or array](http://momentjs.com/docs/#/parsing/string-formats/) that will parse the `date` field.
   * Data type: string or array of strings
   * Default value `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY']`
 * `defaultDirection`: This is default order of the timeline.
@@ -132,7 +132,7 @@ The following options can be passed to the plugin when called:
 * `timelineTemplate`: HTML template for the timeline and middle line.
   * Data type: string
   * Default value: (see code)
-* `data`: A javascript array of objects that can be substitued for getting data from a Google Spreadsheet.  See the `example.json` file for an example structure of the data.
+* `data`: A javascript array of objects that can be substituted for getting data from a Google Spreadsheet.  See the `example.json` file for an example structure of the data.
   * Data type: object
   * Default value: [none]
 * `tabletopOptions`: Overrided tabletop options.  See [Tabletop project](https://github.com/jsoma/tabletop).
