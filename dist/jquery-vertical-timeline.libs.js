@@ -527,7 +527,7 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
     },
     
     /*
-     * Go through each row, substitutiting
+     * Go through each row, substituting
      * Google-formatted "columnName"
      * with human-readable "Column name"
      */
